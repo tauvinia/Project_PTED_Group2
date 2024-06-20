@@ -2,7 +2,7 @@
 
 ```r
 ##1. Packages
-
+ 
 ## Default repository
 local({r <- getOption("repos")
 r["CRAN"] <- "http://cran.r-project.org" 
