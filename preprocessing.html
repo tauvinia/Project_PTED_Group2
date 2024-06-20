@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title></title>
+<style type="text/css">
+/**
+ * Prism.s theme ported from highlight.js's xcode style
+ */
+pre code {
+  padding: 1em;
+}
+.token.comment {
+  color: #007400;
+}
+.token.punctuation {
+  color: #999;
+}
+.token.tag,
+.token.selector {
+  color: #aa0d91;
+}
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #1c00cf;
+}
+.token.property,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #c41a16;
+}
+.token.inserted {
+  background-color: #ccffd8;
+}
+.token.deleted {
+  background-color: #ffebe9;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #836c28;
+}
+.token.function,
+.token.class-name {
+  color: #DD4A68;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #5c2699;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+</style>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+body, .footnotes, code { font-size: .9em; }
+li li { font-size: .95em; }
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+pre, img { max-width: 100%; }
+pre, pre:hover {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre) > code, code[class] { background-color: #F8F8F8; }
+code.language-undefined, pre > code:not([class]) {
+  background-color: inherit;
+  border: 1px solid #eee;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
+blockquote {
+  color: #666;
+  margin: 0;
+  padding-left: 1em;
+  border-left: 0.5em solid #eee;
+}
+hr, .footnotes::before { border: 1px dashed #ddd; }
+.frontmatter { text-align: center; }
+#TOC .numbered li { list-style: none; }
+#TOC .numbered { padding-left: 0; }
+#TOC .numbered ul { padding-left: 1em; }
+table, .body h2 { border-bottom: 1px solid #666; }
+.body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
+.footnote-ref a::before { content: "["; }
+.footnote-ref a::after { content: "]"; }
+section.footnotes::before {
+  content: "";
+  display: block;
+  max-width: 20em;
+}
+
+@media print {
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  tr, img { page-break-inside: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  pre { white-space: pre; }
+}
+</style>
+</head>
+<body>
+<div class="frontmatter">
+<div class="title"><h1></h1></div>
+<div class="author"><h2></h2></div>
+<div class="date"><h3></h3></div>
+</div>
+<div class="body">
+<pre><code class="language-r">##1. Packages
+
+## Default repository
+local({r &lt;- getOption(&quot;repos&quot;)
+r[&quot;CRAN&quot;] &lt;- &quot;http://cran.r-project.org&quot; 
+options(repos=r)
+})
+
+## Define function check_pkg to tests if package is already installed and hence 
+#only needs loading
+check_pkg &lt;- function(x)
+{
+  if (!require(x,character.only = TRUE))
+  {
+    install.packages(x,dep=TRUE)
+    if(!require(x,character.only = TRUE)) stop(&quot;Package not found&quot;)
+  }
+}
+
+## Call check_pkg()
+check_pkg(&quot;pacman&quot;)
+</code></pre>
+<pre><code>## Loading required package: pacman
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;dplyr&quot;)
+</code></pre>
+<pre><code>## Loading required package: dplyr
+</code></pre>
+<pre><code>## 
+## Attaching package: 'dplyr'
+</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;ggplot2&quot;)
+</code></pre>
+<pre><code>## Loading required package: ggplot2
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;readr&quot;)
+</code></pre>
+<pre><code>## Loading required package: readr
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;tidyr&quot;)
+</code></pre>
+<pre><code>## Loading required package: tidyr
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;sf&quot;)
+</code></pre>
+<pre><code>## Loading required package: sf
+</code></pre>
+<pre><code>## Linking to GEOS 3.11.2, GDAL 3.8.2, PROJ 9.3.1; sf_use_s2() is TRUE
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;terra&quot;)
+</code></pre>
+<pre><code>## Loading required package: terra
+</code></pre>
+<pre><code>## terra 1.7.71
+</code></pre>
+<pre><code>## 
+## Attaching package: 'terra'
+</code></pre>
+<pre><code>## The following object is masked from 'package:tidyr':
+## 
+##     extract
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;tmap&quot;)
+</code></pre>
+<pre><code>## Loading required package: tmap
+</code></pre>
+<pre><code>## Breaking News: tmap 3.x is retiring. Please test v4, e.g. with
+## remotes::install_github('r-tmap/tmap')
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;zoo&quot;)
+</code></pre>
+<pre><code>## Loading required package: zoo
+</code></pre>
+<pre><code>## 
+## Attaching package: 'zoo'
+</code></pre>
+<pre><code>## The following object is masked from 'package:terra':
+## 
+##     time&lt;-
+</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;units&quot;)
+</code></pre>
+<pre><code>## Loading required package: units
+</code></pre>
+<pre><code>## udunits database from C:/Users/Tatiana/AppData/Local/R/win-library/4.3/units/share/udunits/udunits2.xml
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;plotly&quot;)
+</code></pre>
+<pre><code>## Loading required package: plotly
+</code></pre>
+<pre><code>## 
+## Attaching package: 'plotly'
+</code></pre>
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+</code></pre>
+<pre><code>## The following object is masked from 'package:stats':
+## 
+##     filter
+</code></pre>
+<pre><code>## The following object is masked from 'package:graphics':
+## 
+##     layout
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;patchwork&quot;)
+</code></pre>
+<pre><code>## Loading required package: patchwork
+</code></pre>
+<pre><code>## 
+## Attaching package: 'patchwork'
+</code></pre>
+<pre><code>## The following object is masked from 'package:terra':
+## 
+##     area
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;gitcreds&quot;)
+</code></pre>
+<pre><code>## Loading required package: gitcreds
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;lubridate&quot;)
+</code></pre>
+<pre><code>## Loading required package: lubridate
+</code></pre>
+<pre><code>## 
+## Attaching package: 'lubridate'
+</code></pre>
+<pre><code>## The following objects are masked from 'package:terra':
+## 
+##     intersect, union
+</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;readr&quot;)
+check_pkg(&quot;forcats&quot;)
+</code></pre>
+<pre><code>## Loading required package: forcats
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;osmdata&quot;)
+</code></pre>
+<pre><code>## Loading required package: osmdata
+</code></pre>
+<pre><code>## Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;OpenStreetMap&quot;)
+</code></pre>
+<pre><code>## Loading required package: OpenStreetMap
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;ggmap&quot;)
+</code></pre>
+<pre><code>## Loading required package: ggmap
+</code></pre>
+<pre><code>## ℹ Google's Terms of Service: &lt;https://mapsplatform.google.com&gt;
+##   Stadia Maps' Terms of Service: &lt;https://stadiamaps.com/terms-of-service/&gt;
+##   OpenStreetMap's Tile Usage Policy: &lt;https://operations.osmfoundation.org/policies/tiles/&gt;
+## ℹ Please cite ggmap if you use it! Use `citation(&quot;ggmap&quot;)` for details.
+## 
+## Attaching package: 'ggmap'
+## 
+## 
+## The following object is masked from 'package:plotly':
+## 
+##     wind
+## 
+## 
+## The following object is masked from 'package:terra':
+## 
+##     inset
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;osmextract&quot;)
+</code></pre>
+<pre><code>## Loading required package: osmextract
+## Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright.
+## Check the package website, https://docs.ropensci.org/osmextract/, for more details.
+</code></pre>
+<pre><code class="language-r">check_pkg(&quot;sfnetworks&quot;)
+</code></pre>
+<pre><code>## Loading required package: sfnetworks
+</code></pre>
+<pre><code class="language-r">##Trajectory data
+
+#Read data
+
+#We have access to two datasets, a small and a large one. As long as there are 
+#sufficient routes in the smaller dataset, we will work with this one.
+ 
+# Small dataset
+data &lt;- read_delim(&quot;data/combined_data.csv&quot;, &quot;,&quot;) |&gt;
+  st_as_sf(coords = c(&quot;longitude&quot;, &quot;latitude&quot;), crs = 4326, remove = FALSE) 
+</code></pre>
+<pre><code>## Error: 'data/combined_data.csv' does not exist in current working directory ('C:/Users/Tatiana/Desktop/ZHAW/Patterns and Trends in Environmental Data/Project/Project_final/Project_PTED_Group2').
+</code></pre>
+<pre><code class="language-r"># Big dataset
+data_1 &lt;- read_delim(&quot;data/combined_data_1.csv&quot;, &quot;,&quot;) |&gt;
+  st_as_sf(coords = c(&quot;longitude&quot;, &quot;latitude&quot;), crs = 4326, remove = FALSE)
+</code></pre>
+<pre><code>## Error: 'data/combined_data_1.csv' does not exist in current working directory ('C:/Users/Tatiana/Desktop/ZHAW/Patterns and Trends in Environmental Data/Project/Project_final/Project_PTED_Group2').
+</code></pre>
+<pre><code class="language-r">##2. Separate timestamp into date and time
+
+# Convert the timestamp to POSIXct
+data$timestamp &lt;- ymd_hms(data$timestamp)
+</code></pre>
+<pre><code>## Error in data$timestamp: object of type 'closure' is not subsettable
+</code></pre>
+<pre><code class="language-r"># Extract date component
+data$date &lt;- as.Date(data$timestamp)
+</code></pre>
+<pre><code>## Error in data$timestamp: object of type 'closure' is not subsettable
+</code></pre>
+<pre><code class="language-r"># Extract time component
+data$time &lt;- format(data$timestamp, format = &quot;%H:%M:%S&quot;)
+</code></pre>
+<pre><code>## Error in data$timestamp: object of type 'closure' is not subsettable
+</code></pre>
+<pre><code class="language-r"># View the modified dataset
+head(data)
+</code></pre>
+<pre><code>##                                                                             
+## 1 function (..., list = character(), package = NULL, lib.loc = NULL,        
+## 2     verbose = getOption(&quot;verbose&quot;), envir = .GlobalEnv, overwrite = TRUE) 
+## 3 {                                                                         
+## 4     fileExt &lt;- function(x) {                                              
+## 5         db &lt;- grepl(&quot;\\\\.[^.]+\\\\.(gz|bz2|xz)$&quot;, x)                     
+## 6         ans &lt;- sub(&quot;.*\\\\.&quot;, &quot;&quot;, x)
+</code></pre>
+<pre><code class="language-r">##3. Select data within Karlsruhe
+
+#In order to reduce the data set in a first step, we have filtered the data that
+#lies within the border of Karlsruhe.
+
+# Extract boundary of Karlsruhe
+boundary &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;boundary&quot;,
+                  value = &quot;administrative&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_multipolygons %&gt;%
+  filter(name == &quot;Karlsruhe&quot;)
+</code></pre>
+<pre><code>## Error in check_for_error(paste0(doc)): General overpass server error; returned:
+## The data included in this document is from www.openstreetmap.org. The data is made available under ODbL. runtime error: Query timed out in &quot;recurse&quot; at line 7 after 53 seconds.
+</code></pre>
+<pre><code class="language-r"># Select data that is within this boundary
+data &lt;- st_filter(data, boundary)
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;st_filter&quot;): no applicable method for 'st_filter' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r"># Plot
+ggplot() +
+  geom_sf(data = boundary) +
+  geom_sf(data = data, color = &quot;darkblue&quot;)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'boundary' not found
+</code></pre>
+<pre><code class="language-r">#Occasionally, we encountered issues with a general Overpass server error when 
+#attempting to access this data. To address this problem, we stored the boundary
+#data locally on our computers, ensuring continuous access to this data at any 
+#time.
+
+#boundary &lt;- st_read(&quot;data/boundary.gpkg&quot;)
+#data &lt;- st_read(&quot;data/small_data.gpkg&quot;)
+
+#ggplot() +
+geom_sf(data = boundary) +
+  geom_sf(data = data, color = &quot;green&quot;)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'boundary' not found
+</code></pre>
+<pre><code class="language-r">##4. Start and end point of the route
+
+#The starting point for the outbound routes is Kriegsstraße 183, 76135 Karlsruhe,
+#Germany. The coordinates of this point are stored in the variable home_point.
+
+#The end point for the return routes is Klosterweg 28, 76131 Karlsruhe, Germany.
+#The coordinates of this point are stored in the variable hadiko_point.
+
+# Store start point
+home_point &lt;- st_point(c(8.36964749052686, 49.00535930123405)) %&gt;% 
+  st_sfc(crs = 4326)
+
+# Store end point
+hadiko_point &lt;- st_point(c(8.4230360394263, 49.020260402061204)) %&gt;% 
+  st_sfc(crs = 4326)
+
+##5. Extract route
+
+#Separate the drives
+
+# Calculate time differences between consecutive points in seconds
+data &lt;- data %&gt;%
+  arrange(timestamp) %&gt;%  # Ensure data is sorted by time
+  mutate(time_diff = c(NA, diff(timestamp)))
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;arrange&quot;): no applicable method for 'arrange' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r"># Identify where the time difference exceeds 300 seconds (5 minutes)
+data &lt;- data %&gt;%
+  mutate(new_drive = ifelse(is.na(time_diff) | time_diff &gt; 300, 1, 0))
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;mutate&quot;): no applicable method for 'mutate' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r"># Assign drive IDs
+data &lt;- data %&gt;%
+  mutate(drive_id = cumsum(new_drive))
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;mutate&quot;): no applicable method for 'mutate' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r"># View the resulting data
+print(data)
+</code></pre>
+<pre><code>## function (..., list = character(), package = NULL, lib.loc = NULL, 
+##     verbose = getOption(&quot;verbose&quot;), envir = .GlobalEnv, overwrite = TRUE) 
+## {
+##     fileExt &lt;- function(x) {
+##         db &lt;- grepl(&quot;\\.[^.]+\\.(gz|bz2|xz)$&quot;, x)
+##         ans &lt;- sub(&quot;.*\\.&quot;, &quot;&quot;, x)
+##         ans[db] &lt;- sub(&quot;.*\\.([^.]+\\.)(gz|bz2|xz)$&quot;, &quot;\\1\\2&quot;, 
+##             x[db])
+##         ans
+##     }
+##     my_read_table &lt;- function(...) {
+##         lcc &lt;- Sys.getlocale(&quot;LC_COLLATE&quot;)
+##         on.exit(Sys.setlocale(&quot;LC_COLLATE&quot;, lcc))
+##         Sys.setlocale(&quot;LC_COLLATE&quot;, &quot;C&quot;)
+##         read.table(...)
+##     }
+##     stopifnot(is.character(list))
+##     names &lt;- c(as.character(substitute(list(...))[-1L]), list)
+##     if (!is.null(package)) {
+##         if (!is.character(package)) 
+##             stop(&quot;'package' must be a character vector or NULL&quot;)
+##     }
+##     paths &lt;- find.package(package, lib.loc, verbose = verbose)
+##     if (is.null(lib.loc)) 
+##         paths &lt;- c(path.package(package, TRUE), if (!length(package)) getwd(), 
+##             paths)
+##     paths &lt;- unique(normalizePath(paths[file.exists(paths)]))
+##     paths &lt;- paths[dir.exists(file.path(paths, &quot;data&quot;))]
+##     dataExts &lt;- tools:::.make_file_exts(&quot;data&quot;)
+##     if (length(names) == 0L) {
+##         db &lt;- matrix(character(), nrow = 0L, ncol = 4L)
+##         for (path in paths) {
+##             entries &lt;- NULL
+##             packageName &lt;- if (file_test(&quot;-f&quot;, file.path(path, 
+##                 &quot;DESCRIPTION&quot;))) 
+##                 basename(path)
+##             else &quot;.&quot;
+##             if (file_test(&quot;-f&quot;, INDEX &lt;- file.path(path, &quot;Meta&quot;, 
+##                 &quot;data.rds&quot;))) {
+##                 entries &lt;- readRDS(INDEX)
+##             }
+##             else {
+##                 dataDir &lt;- file.path(path, &quot;data&quot;)
+##                 entries &lt;- tools::list_files_with_type(dataDir, 
+##                   &quot;data&quot;)
+##                 if (length(entries)) {
+##                   entries &lt;- unique(tools::file_path_sans_ext(basename(entries)))
+##                   entries &lt;- cbind(entries, &quot;&quot;)
+##                 }
+##             }
+##             if (NROW(entries)) {
+##                 if (is.matrix(entries) &amp;&amp; ncol(entries) == 2L) 
+##                   db &lt;- rbind(db, cbind(packageName, dirname(path), 
+##                     entries))
+##                 else warning(gettextf(&quot;data index for package %s is invalid and will be ignored&quot;, 
+##                   sQuote(packageName)), domain = NA, call. = FALSE)
+##             }
+##         }
+##         colnames(db) &lt;- c(&quot;Package&quot;, &quot;LibPath&quot;, &quot;Item&quot;, &quot;Title&quot;)
+##         footer &lt;- if (missing(package)) 
+##             paste0(&quot;Use &quot;, sQuote(paste(&quot;data(package =&quot;, &quot;.packages(all.available = TRUE))&quot;)), 
+##                 &quot;\n&quot;, &quot;to list the data sets in all *available* packages.&quot;)
+##         else NULL
+##         y &lt;- list(title = &quot;Data sets&quot;, header = NULL, results = db, 
+##             footer = footer)
+##         class(y) &lt;- &quot;packageIQR&quot;
+##         return(y)
+##     }
+##     paths &lt;- file.path(paths, &quot;data&quot;)
+##     for (name in names) {
+##         found &lt;- FALSE
+##         for (p in paths) {
+##             tmp_env &lt;- if (overwrite) 
+##                 envir
+##             else new.env()
+##             if (file_test(&quot;-f&quot;, file.path(p, &quot;Rdata.rds&quot;))) {
+##                 rds &lt;- readRDS(file.path(p, &quot;Rdata.rds&quot;))
+##                 if (name %in% names(rds)) {
+##                   found &lt;- TRUE
+##                   if (verbose) 
+##                     message(sprintf(&quot;name=%s:\t found in Rdata.rds&quot;, 
+##                       name), domain = NA)
+##                   thispkg &lt;- sub(&quot;.*/([^/]*)/data$&quot;, &quot;\\1&quot;, p)
+##                   thispkg &lt;- sub(&quot;_.*$&quot;, &quot;&quot;, thispkg)
+##                   thispkg &lt;- paste0(&quot;package:&quot;, thispkg)
+##                   objs &lt;- rds[[name]]
+##                   lazyLoad(file.path(p, &quot;Rdata&quot;), envir = tmp_env, 
+##                     filter = function(x) x %in% objs)
+##                   break
+##                 }
+##                 else if (verbose) 
+##                   message(sprintf(&quot;name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n&quot;, 
+##                     name, paste(names(rds), collapse = &quot;,&quot;)), 
+##                     domain = NA)
+##             }
+##             if (file_test(&quot;-f&quot;, file.path(p, &quot;Rdata.zip&quot;))) {
+##                 warning(&quot;zipped data found for package &quot;, sQuote(basename(dirname(p))), 
+##                   &quot;.\nThat is defunct, so please re-install the package.&quot;, 
+##                   domain = NA)
+##                 if (file_test(&quot;-f&quot;, fp &lt;- file.path(p, &quot;filelist&quot;))) 
+##                   files &lt;- file.path(p, scan(fp, what = &quot;&quot;, quiet = TRUE))
+##                 else {
+##                   warning(gettextf(&quot;file 'filelist' is missing for directory %s&quot;, 
+##                     sQuote(p)), domain = NA)
+##                   next
+##                 }
+##             }
+##             else {
+##                 files &lt;- list.files(p, full.names = TRUE)
+##             }
+##             files &lt;- files[grep(name, files, fixed = TRUE)]
+##             if (length(files) &gt; 1L) {
+##                 o &lt;- match(fileExt(files), dataExts, nomatch = 100L)
+##                 paths0 &lt;- dirname(files)
+##                 paths0 &lt;- factor(paths0, levels = unique(paths0))
+##                 files &lt;- files[order(paths0, o)]
+##             }
+##             if (length(files)) {
+##                 for (file in files) {
+##                   if (verbose) 
+##                     message(&quot;name=&quot;, name, &quot;:\t file= ...&quot;, .Platform$file.sep, 
+##                       basename(file), &quot;::\t&quot;, appendLF = FALSE, 
+##                       domain = NA)
+##                   ext &lt;- fileExt(file)
+##                   if (basename(file) != paste0(name, &quot;.&quot;, ext)) 
+##                     found &lt;- FALSE
+##                   else {
+##                     found &lt;- TRUE
+##                     zfile &lt;- file
+##                     zipname &lt;- file.path(dirname(file), &quot;Rdata.zip&quot;)
+##                     if (file.exists(zipname)) {
+##                       Rdatadir &lt;- tempfile(&quot;Rdata&quot;)
+##                       dir.create(Rdatadir, showWarnings = FALSE)
+##                       topic &lt;- basename(file)
+##                       rc &lt;- .External(C_unzip, zipname, topic, 
+##                         Rdatadir, FALSE, TRUE, FALSE, FALSE)
+##                       if (rc == 0L) 
+##                         zfile &lt;- file.path(Rdatadir, topic)
+##                     }
+##                     if (zfile != file) 
+##                       on.exit(unlink(zfile))
+##                     switch(ext, R = , r = {
+##                       library(&quot;utils&quot;)
+##                       sys.source(zfile, chdir = TRUE, envir = tmp_env)
+##                     }, RData = , rdata = , rda = load(zfile, 
+##                       envir = tmp_env), TXT = , txt = , tab = , 
+##                       tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
+##                       txt.bz2 = , txt.xz = assign(name, my_read_table(zfile, 
+##                         header = TRUE, as.is = FALSE), envir = tmp_env), 
+##                       CSV = , csv = , csv.gz = , csv.bz2 = , 
+##                       csv.xz = assign(name, my_read_table(zfile, 
+##                         header = TRUE, sep = &quot;;&quot;, as.is = FALSE), 
+##                         envir = tmp_env), found &lt;- FALSE)
+##                   }
+##                   if (found) 
+##                     break
+##                 }
+##                 if (verbose) 
+##                   message(if (!found) 
+##                     &quot;*NOT* &quot;, &quot;found&quot;, domain = NA)
+##             }
+##             if (found) 
+##                 break
+##         }
+##         if (!found) {
+##             warning(gettextf(&quot;data set %s not found&quot;, sQuote(name)), 
+##                 domain = NA)
+##         }
+##         else if (!overwrite) {
+##             for (o in ls(envir = tmp_env, all.names = TRUE)) {
+##                 if (exists(o, envir = envir, inherits = FALSE)) 
+##                   warning(gettextf(&quot;an object named %s already exists and will not be overwritten&quot;, 
+##                     sQuote(o)))
+##                 else assign(o, get(o, envir = tmp_env, inherits = FALSE), 
+##                   envir = envir)
+##             }
+##             rm(tmp_env)
+##         }
+##     }
+##     invisible(names)
+## }
+## &lt;bytecode: 0x000001cb93b0b4d8&gt;
+## &lt;environment: namespace:utils&gt;
+</code></pre>
+<pre><code class="language-r">#Filter the drives that happened between &quot;home&quot; and &quot;hadiko&quot;, separate them into
+#datasets with ways &quot;home to hadiko&quot; and &quot;hadiko to home&quot;, visualize.
+
+## Create function to filter drives
+filter_drives &lt;- function(start_point, start_distance, end_point, end_distance, data) {
+  
+  # Create the buffer around the start/end point
+  start_buffer &lt;- st_buffer(start_point, dist = start_distance)
+  end_buffer &lt;- st_buffer(end_point, dist = end_distance)
+  
+  # Check if the first point of each drive is within the start buffer
+  first_points_within_start_buffer &lt;- data %&gt;%
+    group_by(drive_id) %&gt;%
+    slice(1) %&gt;%
+    filter(st_within(geom, start_buffer, sparse = FALSE)) %&gt;%
+    pull(drive_id)
+  
+  # Check if the last point of each drive is within the end buffer
+  last_points_within_end_buffer &lt;- data %&gt;%
+    group_by(drive_id) %&gt;%
+    slice(n()) %&gt;%
+    filter(st_within(geom, end_buffer, sparse = FALSE)) %&gt;%
+    pull(drive_id)
+  
+  # Filter the original data to keep only rows with drive_id meeting both conditions
+  valid_drive_ids &lt;- intersect(first_points_within_start_buffer, last_points_within_end_buffer)
+  data_start_end &lt;- data %&gt;%
+    filter(drive_id %in% valid_drive_ids)
+  print(valid_drive_ids)
+  
+  # Extract starting points for visualization
+  starting_points &lt;- data_start_end %&gt;%
+    group_by(drive_id) %&gt;%
+    slice(1) %&gt;%
+    ungroup()
+  # Extract ending points for visualization
+  ending_points &lt;- data_start_end %&gt;%
+    group_by(drive_id) %&gt;%
+    slice(n()) %&gt;%
+    ungroup()
+  # Visualize the starting/ending points and the start/end buffer as a ring
+  plot &lt;- ggplot() +
+    geom_sf(data = data_start_end, aes(geometry = geom, colour = drive_id), alpha = 0.5, size = 0.1) +
+    geom_sf(data = starting_points, aes(geometry = geom), color = &quot;red&quot;, size = 1) +
+    geom_sf(data = ending_points, aes(geometry = geom), color = &quot;green&quot;, size = 1) +
+    geom_sf(data = start_buffer, fill = NA, color = &quot;red&quot;, size = 1, linetype = &quot;dashed&quot;) +
+    geom_sf(data = end_buffer, fill = NA, color = &quot;green&quot;, size = 1, linetype = &quot;dashed&quot;) +
+    coord_sf() +
+    theme_minimal() +
+    labs(title = &quot;Starting and Ending Points and Start/End Buffer Ring&quot;,
+         subtitle = &quot;Red points are the starting points, red dashed line is the start buffer ring, the same in green for end. Each drive has own colour&quot;)
+  print(plot)
+  return(data_start_end)
+  
+}
+## Apply function
+# on drives starting from home
+data_from_home &lt;- filter_drives(home_point, 500, hadiko_point, 500, data)
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;group_by&quot;): no applicable method for 'group_by' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r"># on drives starting from Hadiko
+data_from_hadiko &lt;- filter_drives(hadiko_point, 500, home_point, 500, data)
+</code></pre>
+<pre><code>## Error in UseMethod(&quot;group_by&quot;): no applicable method for 'group_by' applied to an object of class &quot;function&quot;
+</code></pre>
+<pre><code class="language-r">#To gain a better overview, we created a bounding box around the relevant data points.
+
+## Create bounding box around data
+bbox &lt;- st_bbox(data_from_home) |&gt; 
+  st_as_sfc()
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'data_from_home' not found
+</code></pre>
+<pre><code class="language-r">#Using group by, we obtained an overview of how many routes there are.
+
+## Group the data by drive_id
+# Data from Home
+group_data_from_home &lt;- data_from_home %&gt;%
+  group_by(drive_id) %&gt;%
+  summarize(
+    min_timestamp = min(timestamp),
+    max_timestamp = max(timestamp)
+  )
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'data_from_home' not found
+</code></pre>
+<pre><code class="language-r"># Print
+print(group_data_from_home)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'group_data_from_home' not found
+</code></pre>
+<pre><code class="language-r"># Data from Hadiko
+group_data_from_hadiko &lt;- data_from_hadiko %&gt;%
+  group_by(drive_id) %&gt;%
+  summarize(
+    min_timestamp = min(timestamp),
+    max_timestamp = max(timestamp)
+  )
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'data_from_hadiko' not found
+</code></pre>
+<pre><code class="language-r"># Print
+print(group_data_from_hadiko)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'group_data_from_hadiko' not found
+</code></pre>
+<pre><code class="language-r">##6. Environmental Features OSM
+
+#To relate the data to the environment, we used OpenStreetMap data. With the two
+#functions below, we obtained an overview of the available data.
+
+## Explore features
+#available_features()
+
+#available_tags(feature = &quot;highway&quot;)
+
+##7.Create Street Network
+
+#By extracting the highways, we created a street network for our bounding box.
+#{r fig.width=50, fig.height=40}
+# Extract highways
+highway &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;highway&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_lines 
+
+# Convert object to sfnetwork object
+street_network &lt;- as_sfnetwork(highway, directed = FALSE) %&gt;% # set as undirected
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r"># Overview
+street_network
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'street_network' not found
+</code></pre>
+<pre><code class="language-r"># Plot
+ggplot() +
+  geom_sf(data = street_network %&gt;% activate(edges) %&gt;% st_as_sf(), aes(color = highway), size = 3) + 
+  geom_sf(data = street_network %&gt;% activate(nodes) %&gt;% st_as_sf()) +
+  theme_void()
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'street_network' not found
+</code></pre>
+<pre><code class="language-r">#We stored the nearest vertices to the start and endpoint of the routes.
+
+# Coordinates of all nodes in the network
+vertices_sf &lt;- street_network %&gt;%
+  activate(nodes) %&gt;%
+  st_as_sf()
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'street_network' not found
+</code></pre>
+<pre><code class="language-r"># Find the id of the vertex closest to start point
+start_vertex &lt;- st_nearest_feature(home_point, vertices_sf)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'vertices_sf' not found
+</code></pre>
+<pre><code class="language-r"># Find the id of the vertex closest to end point
+end_vertex &lt;- st_nearest_feature(hadiko_point, vertices_sf)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'vertices_sf' not found
+</code></pre>
+<pre><code class="language-r"># Print
+cat(&quot;Start Vertex:&quot;, start_vertex, &quot;\n&quot;)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'start_vertex' not found
+</code></pre>
+<pre><code class="language-r">cat(&quot;End Vertex:&quot;, end_vertex)
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'end_vertex' not found
+</code></pre>
+<pre><code class="language-r">##8. Green spaces
+
+#To determine the green spaces in the area, parks and forests were extracted 
+#from OSM data. Since OSM polygons and multipolygons provided different data, 
+#both were extracted and then merged.
+
+# Parks
+parks &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;leisure&quot;,
+                  value = &quot;park&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_polygons %&gt;%
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r"># Forests Polygons
+forest_polys &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;landuse&quot;,
+                  value = &quot;forest&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_polygons %&gt;%
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r"># Forests Multipolygons
+forest_multipolys &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;landuse&quot;,
+                  value = &quot;forest&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_multipolygons %&gt;%
+  st_make_valid() %&gt;% 
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r"># Merge
+green_spaces &lt;- bind_rows(parks, forest_polys, forest_multipolys) |&gt; 
+  st_union() |&gt; 
+  st_make_valid()
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'parks' not found
+</code></pre>
+<pre><code class="language-r">#As the grass polygons mostly intersect with the green space polygons and few 
+#data points pass through them, as we can see in the visualization below, we 
+#decided not to take this feature into account. We believe the green areas are 
+#well covered by the forest and park extractions, so the grass does not need to 
+#be considered.
+
+# Trees
+trees &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;natural&quot;,
+                  value = &quot;tree&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_points %&gt;%
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r"># Grass
+grass &lt;- getbb(place_name = &quot;Karlsruhe&quot;) %&gt;%
+  opq() %&gt;%
+  add_osm_feature(key = &quot;landuse&quot;,
+                  value = &quot;grass&quot;) %&gt;%
+  osmdata_sf() %&gt;%
+  .$osm_polygons %&gt;%
+  st_intersection(bbox)
+</code></pre>
+<pre><code>## Error: object 'bbox' not found
+</code></pre>
+<pre><code class="language-r">##9.Visualization of OSM Features
+
+#To obtain a good overview of the extracted features, we visualized them.
+
+#{r fig.width=50, fig.height=40}
+# Plot
+ggplot() +
+  
+  # Edges of street network
+  geom_sf(data = street_network %&gt;% activate(edges) %&gt;% st_as_sf(), size = 2, color = &quot;black&quot;) +
+  
+  # Green Spaces
+  geom_sf(data = forest_multipolys, fill = &quot;lightgreen&quot;) +
+  
+  # Trees
+  geom_sf(data = trees, color = &quot;darkgreen&quot;, size = 3) +
+  
+  # Grass
+  geom_sf(data = grass, fill = &quot;green&quot;) +
+  
+  # Movement data
+  geom_sf(data = data_from_home, color = &quot;steelblue&quot;, size = 1) +
+  geom_sf(data = data_from_hadiko, color = &quot;darkred&quot;, size = 1) +
+  
+  # Theme
+  theme_void()
+</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object 'street_network' not found
+</code></pre>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
