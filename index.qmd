@@ -1,7 +1,7 @@
 ---
-title: The title of your Semesterproject
+title: Detecting Speed and Route Deviations in Biking Data
 subtitle: A subtle subtitle
-author: Firstname1 Lastname1 and Firstname2 Lastname2
+author: Tanja Falasca and Tatiana Blumberg
 format:
   html:
     code-fold: true
