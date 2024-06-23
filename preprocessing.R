@@ -55,6 +55,8 @@ data <- read_delim("data/combined_data.csv", ",") |>
 data_1 <- read_delim("data/combined_data_1.csv", ",") |>
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
 
+# data <- data_1
+
 ##2. Separate timestamp into date and time
 
 # Convert the timestamp to POSIXct
@@ -87,9 +89,9 @@ boundary <- getbb(place_name = "Karlsruhe") %>%
 data <- st_filter(data, boundary)
 
 # Plot
-ggplot() +
-  geom_sf(data = boundary) +
-  geom_sf(data = data, color = "darkblue")
+# ggplot() +
+#   geom_sf(data = boundary) +
+#   geom_sf(data = data, color = "darkblue")
 
 #Occasionally, we encountered issues with a general Overpass server error when 
 #attempting to access this data. To address this problem, we stored the boundary
@@ -99,9 +101,9 @@ ggplot() +
 #boundary <- st_read("data/boundary.gpkg")
 #data <- st_read("data/small_data.gpkg")
 
-#ggplot() +
-geom_sf(data = boundary) +
-  geom_sf(data = data, color = "green")
+# ggplot() +
+# geom_sf(data = boundary) +
+#   geom_sf(data = data, color = "green")
 
 ##4. Start and end point of the route
 
@@ -113,11 +115,11 @@ geom_sf(data = boundary) +
 
 # Store start point
 home_point <- st_point(c(8.36964749052686, 49.00535930123405)) %>% 
-  st_sfc(crs = 4326)
+  st_sfc(crs = st_crs(data))
 
 # Store end point
 hadiko_point <- st_point(c(8.4230360394263, 49.020260402061204)) %>% 
-  st_sfc(crs = 4326)
+  st_sfc(crs = st_crs(data))
 
 ##5. Extract route
 
@@ -137,7 +139,7 @@ data <- data %>%
   mutate(drive_id = cumsum(new_drive))
 
 # View the resulting data
-print(data)
+# print(data)
 
 #Filter the drives that happened between "home" and "hadiko", separate them into
 #datasets with ways "home to hadiko" and "hadiko to home", visualize.
@@ -153,21 +155,21 @@ filter_drives <- function(start_point, start_distance, end_point, end_distance, 
   first_points_within_start_buffer <- data %>%
     group_by(drive_id) %>%
     slice(1) %>%
-    filter(st_within(geom, start_buffer, sparse = FALSE)) %>%
+    filter(st_within(geometry, start_buffer, sparse = FALSE)) %>%
     pull(drive_id)
   
   # Check if the last point of each drive is within the end buffer
   last_points_within_end_buffer <- data %>%
     group_by(drive_id) %>%
     slice(n()) %>%
-    filter(st_within(geom, end_buffer, sparse = FALSE)) %>%
+    filter(st_within(geometry, end_buffer, sparse = FALSE)) %>%
     pull(drive_id)
   
   # Filter the original data to keep only rows with drive_id meeting both conditions
   valid_drive_ids <- intersect(first_points_within_start_buffer, last_points_within_end_buffer)
   data_start_end <- data %>%
     filter(drive_id %in% valid_drive_ids)
-  print(valid_drive_ids)
+  # print(valid_drive_ids)
   
   # Extract starting points for visualization
   starting_points <- data_start_end %>%
@@ -180,17 +182,17 @@ filter_drives <- function(start_point, start_distance, end_point, end_distance, 
     slice(n()) %>%
     ungroup()
   # Visualize the starting/ending points and the start/end buffer as a ring
-  plot <- ggplot() +
-    geom_sf(data = data_start_end, aes(geometry = geom, colour = drive_id), alpha = 0.5, size = 0.1) +
-    geom_sf(data = starting_points, aes(geometry = geom), color = "red", size = 1) +
-    geom_sf(data = ending_points, aes(geometry = geom), color = "green", size = 1) +
-    geom_sf(data = start_buffer, fill = NA, color = "red", size = 1, linetype = "dashed") +
-    geom_sf(data = end_buffer, fill = NA, color = "green", size = 1, linetype = "dashed") +
-    coord_sf() +
-    theme_minimal() +
-    labs(title = "Starting and Ending Points and Start/End Buffer Ring",
-         subtitle = "Red points are the starting points, red dashed line is the start buffer ring, the same in green for end. Each drive has own colour")
-  print(plot)
+  # plot <- ggplot() +
+  #   geom_sf(data = data_start_end, aes(geometry = geometry, colour = drive_id), alpha = 0.5, size = 0.1) +
+  #   geom_sf(data = starting_points, aes(geometry = geometry), color = "red", size = 1) +
+  #   geom_sf(data = ending_points, aes(geometry = geometry), color = "green", size = 1) +
+  #   geom_sf(data = start_buffer, fill = NA, color = "red", size = 1, linetype = "dashed") +
+  #   geom_sf(data = end_buffer, fill = NA, color = "green", size = 1, linetype = "dashed") +
+  #   coord_sf() +
+  #   theme_minimal() +
+  #   labs(title = "Starting and Ending Points and Start/End Buffer Ring",
+  #        subtitle = "Red points are the starting points, red dashed line is the start buffer ring, the same in green for end. Each drive has own colour")
+  # print(plot)
   return(data_start_end)
   
 }
@@ -218,7 +220,7 @@ group_data_from_home <- data_from_home %>%
   )
 
 # Print
-print(group_data_from_home)
+# print(group_data_from_home)
 
 
 # Data from Hadiko
@@ -230,7 +232,7 @@ group_data_from_hadiko <- data_from_hadiko %>%
   )
 
 # Print
-print(group_data_from_hadiko)
+# print(group_data_from_hadiko)
 
 ##6. Environmental Features OSM
 
@@ -261,10 +263,10 @@ street_network <- as_sfnetwork(highway, directed = FALSE) %>% # set as undirecte
 street_network
 
 # Plot
-ggplot() +
-  geom_sf(data = street_network %>% activate(edges) %>% st_as_sf(), aes(color = highway), size = 3) + 
-  geom_sf(data = street_network %>% activate(nodes) %>% st_as_sf()) +
-  theme_void()
+# ggplot() +
+#   geom_sf(data = street_network %>% activate(edges) %>% st_as_sf(), aes(color = highway), size = 3) + 
+#   geom_sf(data = street_network %>% activate(nodes) %>% st_as_sf()) +
+#   theme_void()
 
 #We stored the nearest vertices to the start and endpoint of the routes.
 
@@ -280,8 +282,8 @@ start_vertex <- st_nearest_feature(home_point, vertices_sf)
 end_vertex <- st_nearest_feature(hadiko_point, vertices_sf)
 
 # Print
-cat("Start Vertex:", start_vertex, "\n")
-cat("End Vertex:", end_vertex)
+# cat("Start Vertex:", start_vertex, "\n")
+# cat("End Vertex:", end_vertex)
 
 
 ##8. Green spaces
@@ -353,26 +355,26 @@ grass <- getbb(place_name = "Karlsruhe") %>%
 
 #{r fig.width=50, fig.height=40}
 # Plot
-ggplot() +
-  
-  # Edges of street network
-  geom_sf(data = street_network %>% activate(edges) %>% st_as_sf(), size = 2, color = "black") +
-  
-  # Green Spaces
-  geom_sf(data = forest_multipolys, fill = "lightgreen") +
-  
-  # Trees
-  geom_sf(data = trees, color = "darkgreen", size = 3) +
-  
-  # Grass
-  geom_sf(data = grass, fill = "green") +
-  
-  # Movement data
-  geom_sf(data = data_from_home, color = "steelblue", size = 1) +
-  geom_sf(data = data_from_hadiko, color = "darkred", size = 1) +
-  
-  # Theme
-  theme_void()
+# ggplot() +
+#   
+#   # Edges of street network
+#   geom_sf(data = street_network %>% activate(edges) %>% st_as_sf(), size = 2, color = "black") +
+#   
+#   # Green Spaces
+#   geom_sf(data = forest_multipolys, fill = "lightgreen") +
+#   
+#   # Trees
+#   geom_sf(data = trees, color = "darkgreen", size = 3) +
+#   
+#   # Grass
+#   geom_sf(data = grass, fill = "green") +
+#   
+#   # Movement data
+#   geom_sf(data = data_from_home, color = "steelblue", size = 1) +
+#   geom_sf(data = data_from_hadiko, color = "darkred", size = 1) +
+#   
+#   # Theme
+#   theme_void()
 
 
 

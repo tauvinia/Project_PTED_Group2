@@ -2,7 +2,7 @@
 
 ```r
 ##1. Packages
- 
+
 ## Default repository
 local({r <- getOption("repos")
 r["CRAN"] <- "http://cran.r-project.org" 
@@ -22,304 +22,27 @@ check_pkg <- function(x)
 
 ## Call check_pkg()
 check_pkg("pacman")
-```
-
-```
-## Loading required package: pacman
-```
-
-```r
 check_pkg("dplyr")
-```
-
-```
-## Loading required package: dplyr
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 check_pkg("ggplot2")
-```
-
-```
-## Loading required package: ggplot2
-```
-
-```r
 check_pkg("readr")
-```
-
-```
-## Loading required package: readr
-```
-
-```r
 check_pkg("tidyr")
-```
-
-```
-## Loading required package: tidyr
-```
-
-```r
 check_pkg("sf")
-```
-
-```
-## Loading required package: sf
-```
-
-```
-## Linking to GEOS 3.11.2, GDAL 3.8.2, PROJ 9.3.1; sf_use_s2() is TRUE
-```
-
-```r
 check_pkg("terra")
-```
-
-```
-## Loading required package: terra
-```
-
-```
-## terra 1.7.71
-```
-
-```
-## 
-## Attaching package: 'terra'
-```
-
-```
-## The following object is masked from 'package:tidyr':
-## 
-##     extract
-```
-
-```r
 check_pkg("tmap")
-```
-
-```
-## Loading required package: tmap
-```
-
-```
-## Breaking News: tmap 3.x is retiring. Please test v4, e.g. with
-## remotes::install_github('r-tmap/tmap')
-```
-
-```r
 check_pkg("zoo")
-```
-
-```
-## Loading required package: zoo
-```
-
-```
-## 
-## Attaching package: 'zoo'
-```
-
-```
-## The following object is masked from 'package:terra':
-## 
-##     time<-
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     as.Date, as.Date.numeric
-```
-
-```r
 check_pkg("units")
-```
-
-```
-## Loading required package: units
-```
-
-```
-## udunits database from C:/Users/Tatiana/AppData/Local/R/win-library/4.3/units/share/udunits/udunits2.xml
-```
-
-```r
 check_pkg("plotly")
-```
-
-```
-## Loading required package: plotly
-```
-
-```
-## 
-## Attaching package: 'plotly'
-```
-
-```
-## The following object is masked from 'package:ggplot2':
-## 
-##     last_plot
-```
-
-```
-## The following object is masked from 'package:stats':
-## 
-##     filter
-```
-
-```
-## The following object is masked from 'package:graphics':
-## 
-##     layout
-```
-
-```r
 check_pkg("patchwork")
-```
-
-```
-## Loading required package: patchwork
-```
-
-```
-## 
-## Attaching package: 'patchwork'
-```
-
-```
-## The following object is masked from 'package:terra':
-## 
-##     area
-```
-
-```r
 check_pkg("gitcreds")
-```
-
-```
-## Loading required package: gitcreds
-```
-
-```r
 check_pkg("lubridate")
-```
-
-```
-## Loading required package: lubridate
-```
-
-```
-## 
-## Attaching package: 'lubridate'
-```
-
-```
-## The following objects are masked from 'package:terra':
-## 
-##     intersect, union
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     date, intersect, setdiff, union
-```
-
-```r
 check_pkg("readr")
 check_pkg("forcats")
-```
-
-```
-## Loading required package: forcats
-```
-
-```r
 check_pkg("osmdata")
-```
-
-```
-## Loading required package: osmdata
-```
-
-```
-## Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright
-```
-
-```r
 check_pkg("OpenStreetMap")
-```
-
-```
-## Loading required package: OpenStreetMap
-```
-
-```r
 check_pkg("ggmap")
-```
-
-```
-## Loading required package: ggmap
-```
-
-```
-## ℹ Google's Terms of Service: <https://mapsplatform.google.com>
-##   Stadia Maps' Terms of Service: <https://stadiamaps.com/terms-of-service/>
-##   OpenStreetMap's Tile Usage Policy: <https://operations.osmfoundation.org/policies/tiles/>
-## ℹ Please cite ggmap if you use it! Use `citation("ggmap")` for details.
-## 
-## Attaching package: 'ggmap'
-## 
-## 
-## The following object is masked from 'package:plotly':
-## 
-##     wind
-## 
-## 
-## The following object is masked from 'package:terra':
-## 
-##     inset
-```
-
-```r
 check_pkg("osmextract")
-```
-
-```
-## Loading required package: osmextract
-## Data (c) OpenStreetMap contributors, ODbL 1.0. https://www.openstreetmap.org/copyright.
-## Check the package website, https://docs.ropensci.org/osmextract/, for more details.
-```
-
-```r
 check_pkg("sfnetworks")
-```
 
-```
-## Loading required package: sfnetworks
-```
-
-```r
 ##Trajectory data
 
 #Read data
@@ -333,7 +56,14 @@ data <- read_delim("data/combined_data.csv", ",") |>
 ```
 
 ```
-## Error: 'data/combined_data.csv' does not exist in current working directory ('C:/Users/Tatiana/Desktop/ZHAW/Patterns and Trends in Environmental Data/Project/Project_final/Project_PTED_Group2').
+## Rows: 21458 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────
+## Delimiter: ","
+## dbl  (3): latitude, longitude, elevation
+## dttm (1): timestamp
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```r
@@ -343,7 +73,14 @@ data_1 <- read_delim("data/combined_data_1.csv", ",") |>
 ```
 
 ```
-## Error: 'data/combined_data_1.csv' does not exist in current working directory ('C:/Users/Tatiana/Desktop/ZHAW/Patterns and Trends in Environmental Data/Project/Project_final/Project_PTED_Group2').
+## Rows: 347555 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────
+## Delimiter: ","
+## dbl  (3): latitude, longitude, elevation
+## dttm (1): timestamp
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```r
@@ -351,43 +88,32 @@ data_1 <- read_delim("data/combined_data_1.csv", ",") |>
 
 # Convert the timestamp to POSIXct
 data$timestamp <- ymd_hms(data$timestamp)
-```
 
-```
-## Error in data$timestamp: object of type 'closure' is not subsettable
-```
-
-```r
 # Extract date component
 data$date <- as.Date(data$timestamp)
-```
 
-```
-## Error in data$timestamp: object of type 'closure' is not subsettable
-```
-
-```r
 # Extract time component
 data$time <- format(data$timestamp, format = "%H:%M:%S")
-```
 
-```
-## Error in data$timestamp: object of type 'closure' is not subsettable
-```
-
-```r
 # View the modified dataset
 head(data)
 ```
 
 ```
-##                                                                             
-## 1 function (..., list = character(), package = NULL, lib.loc = NULL,        
-## 2     verbose = getOption("verbose"), envir = .GlobalEnv, overwrite = TRUE) 
-## 3 {                                                                         
-## 4     fileExt <- function(x) {                                              
-## 5         db <- grepl("\\\\.[^.]+\\\\.(gz|bz2|xz)$", x)                     
-## 6         ans <- sub(".*\\\\.", "", x)
+## Simple feature collection with 6 features and 6 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 8.369448 ymin: 49.0053 xmax: 8.369607 ymax: 49.00543
+## Geodetic CRS:  WGS 84
+## # A tibble: 6 × 7
+##   latitude longitude elevation timestamp                      geometry date       time    
+##      <dbl>     <dbl>     <dbl> <dttm>                      <POINT [°]> <date>     <chr>   
+## 1     49.0      8.37      118. 2024-04-05 20:59:08 (8.369448 49.00543) 2024-04-05 20:59:08
+## 2     49.0      8.37      118. 2024-04-05 20:59:34 (8.369605 49.00534) 2024-04-05 20:59:34
+## 3     49.0      8.37      118. 2024-04-05 20:59:35 (8.369605 49.00533) 2024-04-05 20:59:35
+## 4     49.0      8.37      118. 2024-04-05 20:59:36 (8.369606 49.00532) 2024-04-05 20:59:36
+## 5     49.0      8.37      118. 2024-04-05 20:59:37  (8.369607 49.0053) 2024-04-05 20:59:37
+## 6     49.0      8.37      118. 2024-04-05 20:59:38  (8.369607 49.0053) 2024-04-05 20:59:38
 ```
 
 ```r
@@ -404,32 +130,17 @@ boundary <- getbb(place_name = "Karlsruhe") %>%
   osmdata_sf() %>%
   .$osm_multipolygons %>%
   filter(name == "Karlsruhe")
-```
 
-```
-## Error in check_for_error(paste0(doc)): General overpass server error; returned:
-## The data included in this document is from www.openstreetmap.org. The data is made available under ODbL. runtime error: Query timed out in "recurse" at line 7 after 53 seconds.
-```
-
-```r
 # Select data that is within this boundary
 data <- st_filter(data, boundary)
-```
 
-```
-## Error in UseMethod("st_filter"): no applicable method for 'st_filter' applied to an object of class "function"
-```
-
-```r
 # Plot
 ggplot() +
   geom_sf(data = boundary) +
   geom_sf(data = data, color = "darkblue")
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'boundary' not found
-```
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
 ```r
 #Occasionally, we encountered issues with a general Overpass server error when 
@@ -446,7 +157,7 @@ geom_sf(data = boundary) +
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'boundary' not found
+## Error in geom_sf(data = boundary) + geom_sf(data = data, color = "green"): non-numeric argument to binary operator
 ```
 
 ```r
@@ -474,221 +185,40 @@ hadiko_point <- st_point(c(8.4230360394263, 49.020260402061204)) %>%
 data <- data %>%
   arrange(timestamp) %>%  # Ensure data is sorted by time
   mutate(time_diff = c(NA, diff(timestamp)))
-```
 
-```
-## Error in UseMethod("arrange"): no applicable method for 'arrange' applied to an object of class "function"
-```
-
-```r
 # Identify where the time difference exceeds 300 seconds (5 minutes)
 data <- data %>%
   mutate(new_drive = ifelse(is.na(time_diff) | time_diff > 300, 1, 0))
-```
 
-```
-## Error in UseMethod("mutate"): no applicable method for 'mutate' applied to an object of class "function"
-```
-
-```r
 # Assign drive IDs
 data <- data %>%
   mutate(drive_id = cumsum(new_drive))
-```
 
-```
-## Error in UseMethod("mutate"): no applicable method for 'mutate' applied to an object of class "function"
-```
-
-```r
 # View the resulting data
 print(data)
 ```
 
 ```
-## function (..., list = character(), package = NULL, lib.loc = NULL, 
-##     verbose = getOption("verbose"), envir = .GlobalEnv, overwrite = TRUE) 
-## {
-##     fileExt <- function(x) {
-##         db <- grepl("\\.[^.]+\\.(gz|bz2|xz)$", x)
-##         ans <- sub(".*\\.", "", x)
-##         ans[db] <- sub(".*\\.([^.]+\\.)(gz|bz2|xz)$", "\\1\\2", 
-##             x[db])
-##         ans
-##     }
-##     my_read_table <- function(...) {
-##         lcc <- Sys.getlocale("LC_COLLATE")
-##         on.exit(Sys.setlocale("LC_COLLATE", lcc))
-##         Sys.setlocale("LC_COLLATE", "C")
-##         read.table(...)
-##     }
-##     stopifnot(is.character(list))
-##     names <- c(as.character(substitute(list(...))[-1L]), list)
-##     if (!is.null(package)) {
-##         if (!is.character(package)) 
-##             stop("'package' must be a character vector or NULL")
-##     }
-##     paths <- find.package(package, lib.loc, verbose = verbose)
-##     if (is.null(lib.loc)) 
-##         paths <- c(path.package(package, TRUE), if (!length(package)) getwd(), 
-##             paths)
-##     paths <- unique(normalizePath(paths[file.exists(paths)]))
-##     paths <- paths[dir.exists(file.path(paths, "data"))]
-##     dataExts <- tools:::.make_file_exts("data")
-##     if (length(names) == 0L) {
-##         db <- matrix(character(), nrow = 0L, ncol = 4L)
-##         for (path in paths) {
-##             entries <- NULL
-##             packageName <- if (file_test("-f", file.path(path, 
-##                 "DESCRIPTION"))) 
-##                 basename(path)
-##             else "."
-##             if (file_test("-f", INDEX <- file.path(path, "Meta", 
-##                 "data.rds"))) {
-##                 entries <- readRDS(INDEX)
-##             }
-##             else {
-##                 dataDir <- file.path(path, "data")
-##                 entries <- tools::list_files_with_type(dataDir, 
-##                   "data")
-##                 if (length(entries)) {
-##                   entries <- unique(tools::file_path_sans_ext(basename(entries)))
-##                   entries <- cbind(entries, "")
-##                 }
-##             }
-##             if (NROW(entries)) {
-##                 if (is.matrix(entries) && ncol(entries) == 2L) 
-##                   db <- rbind(db, cbind(packageName, dirname(path), 
-##                     entries))
-##                 else warning(gettextf("data index for package %s is invalid and will be ignored", 
-##                   sQuote(packageName)), domain = NA, call. = FALSE)
-##             }
-##         }
-##         colnames(db) <- c("Package", "LibPath", "Item", "Title")
-##         footer <- if (missing(package)) 
-##             paste0("Use ", sQuote(paste("data(package =", ".packages(all.available = TRUE))")), 
-##                 "\n", "to list the data sets in all *available* packages.")
-##         else NULL
-##         y <- list(title = "Data sets", header = NULL, results = db, 
-##             footer = footer)
-##         class(y) <- "packageIQR"
-##         return(y)
-##     }
-##     paths <- file.path(paths, "data")
-##     for (name in names) {
-##         found <- FALSE
-##         for (p in paths) {
-##             tmp_env <- if (overwrite) 
-##                 envir
-##             else new.env()
-##             if (file_test("-f", file.path(p, "Rdata.rds"))) {
-##                 rds <- readRDS(file.path(p, "Rdata.rds"))
-##                 if (name %in% names(rds)) {
-##                   found <- TRUE
-##                   if (verbose) 
-##                     message(sprintf("name=%s:\t found in Rdata.rds", 
-##                       name), domain = NA)
-##                   thispkg <- sub(".*/([^/]*)/data$", "\\1", p)
-##                   thispkg <- sub("_.*$", "", thispkg)
-##                   thispkg <- paste0("package:", thispkg)
-##                   objs <- rds[[name]]
-##                   lazyLoad(file.path(p, "Rdata"), envir = tmp_env, 
-##                     filter = function(x) x %in% objs)
-##                   break
-##                 }
-##                 else if (verbose) 
-##                   message(sprintf("name=%s:\t NOT found in names() of Rdata.rds, i.e.,\n\t%s\n", 
-##                     name, paste(names(rds), collapse = ",")), 
-##                     domain = NA)
-##             }
-##             if (file_test("-f", file.path(p, "Rdata.zip"))) {
-##                 warning("zipped data found for package ", sQuote(basename(dirname(p))), 
-##                   ".\nThat is defunct, so please re-install the package.", 
-##                   domain = NA)
-##                 if (file_test("-f", fp <- file.path(p, "filelist"))) 
-##                   files <- file.path(p, scan(fp, what = "", quiet = TRUE))
-##                 else {
-##                   warning(gettextf("file 'filelist' is missing for directory %s", 
-##                     sQuote(p)), domain = NA)
-##                   next
-##                 }
-##             }
-##             else {
-##                 files <- list.files(p, full.names = TRUE)
-##             }
-##             files <- files[grep(name, files, fixed = TRUE)]
-##             if (length(files) > 1L) {
-##                 o <- match(fileExt(files), dataExts, nomatch = 100L)
-##                 paths0 <- dirname(files)
-##                 paths0 <- factor(paths0, levels = unique(paths0))
-##                 files <- files[order(paths0, o)]
-##             }
-##             if (length(files)) {
-##                 for (file in files) {
-##                   if (verbose) 
-##                     message("name=", name, ":\t file= ...", .Platform$file.sep, 
-##                       basename(file), "::\t", appendLF = FALSE, 
-##                       domain = NA)
-##                   ext <- fileExt(file)
-##                   if (basename(file) != paste0(name, ".", ext)) 
-##                     found <- FALSE
-##                   else {
-##                     found <- TRUE
-##                     zfile <- file
-##                     zipname <- file.path(dirname(file), "Rdata.zip")
-##                     if (file.exists(zipname)) {
-##                       Rdatadir <- tempfile("Rdata")
-##                       dir.create(Rdatadir, showWarnings = FALSE)
-##                       topic <- basename(file)
-##                       rc <- .External(C_unzip, zipname, topic, 
-##                         Rdatadir, FALSE, TRUE, FALSE, FALSE)
-##                       if (rc == 0L) 
-##                         zfile <- file.path(Rdatadir, topic)
-##                     }
-##                     if (zfile != file) 
-##                       on.exit(unlink(zfile))
-##                     switch(ext, R = , r = {
-##                       library("utils")
-##                       sys.source(zfile, chdir = TRUE, envir = tmp_env)
-##                     }, RData = , rdata = , rda = load(zfile, 
-##                       envir = tmp_env), TXT = , txt = , tab = , 
-##                       tab.gz = , tab.bz2 = , tab.xz = , txt.gz = , 
-##                       txt.bz2 = , txt.xz = assign(name, my_read_table(zfile, 
-##                         header = TRUE, as.is = FALSE), envir = tmp_env), 
-##                       CSV = , csv = , csv.gz = , csv.bz2 = , 
-##                       csv.xz = assign(name, my_read_table(zfile, 
-##                         header = TRUE, sep = ";", as.is = FALSE), 
-##                         envir = tmp_env), found <- FALSE)
-##                   }
-##                   if (found) 
-##                     break
-##                 }
-##                 if (verbose) 
-##                   message(if (!found) 
-##                     "*NOT* ", "found", domain = NA)
-##             }
-##             if (found) 
-##                 break
-##         }
-##         if (!found) {
-##             warning(gettextf("data set %s not found", sQuote(name)), 
-##                 domain = NA)
-##         }
-##         else if (!overwrite) {
-##             for (o in ls(envir = tmp_env, all.names = TRUE)) {
-##                 if (exists(o, envir = envir, inherits = FALSE)) 
-##                   warning(gettextf("an object named %s already exists and will not be overwritten", 
-##                     sQuote(o)))
-##                 else assign(o, get(o, envir = tmp_env, inherits = FALSE), 
-##                   envir = envir)
-##             }
-##             rm(tmp_env)
-##         }
-##     }
-##     invisible(names)
-## }
-## <bytecode: 0x000001cb93b0b4d8>
-## <environment: namespace:utils>
+## Simple feature collection with 21458 features and 9 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 8.356791 ymin: 49.00144 xmax: 8.425648 ymax: 49.02645
+## Geodetic CRS:  WGS 84
+## # A tibble: 21,458 × 10
+##    latitude longitude elevation timestamp                      geometry date       time     time_diff
+##  *    <dbl>     <dbl>     <dbl> <dttm>                      <POINT [°]> <date>     <chr>        <dbl>
+##  1     49.0      8.37      118. 2024-04-05 20:59:08 (8.369448 49.00543) 2024-04-05 20:59:08        NA
+##  2     49.0      8.37      118. 2024-04-05 20:59:34 (8.369605 49.00534) 2024-04-05 20:59:34        26
+##  3     49.0      8.37      118. 2024-04-05 20:59:35 (8.369605 49.00533) 2024-04-05 20:59:35         1
+##  4     49.0      8.37      118. 2024-04-05 20:59:36 (8.369606 49.00532) 2024-04-05 20:59:36         1
+##  5     49.0      8.37      118. 2024-04-05 20:59:37  (8.369607 49.0053) 2024-04-05 20:59:37         1
+##  6     49.0      8.37      118. 2024-04-05 20:59:38  (8.369607 49.0053) 2024-04-05 20:59:38         1
+##  7     49.0      8.37      118. 2024-04-05 20:59:39  (8.369602 49.0053) 2024-04-05 20:59:39         1
+##  8     49.0      8.37      118. 2024-04-05 20:59:40 (8.369611 49.00529) 2024-04-05 20:59:40         1
+##  9     49.0      8.37      118. 2024-04-05 20:59:41 (8.369583 49.00525) 2024-04-05 20:59:41         1
+## 10     49.0      8.37      118. 2024-04-05 20:59:42 (8.369589 49.00527) 2024-04-05 20:59:42         1
+## # ℹ 21,448 more rows
+## # ℹ 2 more variables: new_drive <dbl>, drive_id <dbl>
 ```
 
 ```r
@@ -753,7 +283,11 @@ data_from_home <- filter_drives(home_point, 500, hadiko_point, 500, data)
 ```
 
 ```
-## Error in UseMethod("group_by"): no applicable method for 'group_by' applied to an object of class "function"
+## Error in `stopifnot()`:
+## ℹ In argument: `st_within(geom, start_buffer, sparse = FALSE)`.
+## ℹ In group 1: `drive_id = 1`.
+## Caused by error in `UseMethod()`:
+## ! no applicable method for 'st_geometry' applied to an object of class "c('standardGeneric', 'genericFunction', 'function', 'OptionalFunction', 'PossibleMethod', 'optionalMethod')"
 ```
 
 ```r
@@ -762,7 +296,11 @@ data_from_hadiko <- filter_drives(hadiko_point, 500, home_point, 500, data)
 ```
 
 ```
-## Error in UseMethod("group_by"): no applicable method for 'group_by' applied to an object of class "function"
+## Error in `stopifnot()`:
+## ℹ In argument: `st_within(geom, start_buffer, sparse = FALSE)`.
+## ℹ In group 1: `drive_id = 1`.
+## Caused by error in `UseMethod()`:
+## ! no applicable method for 'st_geometry' applied to an object of class "c('standardGeneric', 'genericFunction', 'function', 'OptionalFunction', 'PossibleMethod', 'optionalMethod')"
 ```
 
 ```r

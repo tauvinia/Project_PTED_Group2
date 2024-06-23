@@ -14,8 +14,8 @@ Analysis Geo 880**
 |:---------------|:---------------------------------------- |
 | **Data:**      | Daily trajectories |
 | **Title:**     | Detecting Speed and Route Deviations in Biking Data              |
-| **Student 1:** | Tanja Falasca                       |
-| **Student 2:** | Tatiana Blumberg                        |
+| **Student 1:** | Tatiana Blumberg                        |
+| **Student 2:** | Tanja Falasca                       |
 
 ## Abstract 
 In this work, we will examine biking GPS data. The focus of this project is to analyse speed and route deviations considering the environment and time in which the tracking was conducted. The analysis will be conducted in the R environment. Depending on the results, we will try to identify possible reasons behind these deviations. 
