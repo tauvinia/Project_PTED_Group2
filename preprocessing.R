@@ -55,7 +55,7 @@ data <- read_delim("data/combined_data.csv", ",") |>
 data_1 <- read_delim("data/combined_data_1.csv", ",") |>
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
 
-# data <- data_1
+data <- data_1
 
 ##2. Separate timestamp into date and time
 
@@ -375,6 +375,7 @@ grass <- getbb(place_name = "Karlsruhe") %>%
 #   
 #   # Theme
 #   theme_void()
+
 
 
 

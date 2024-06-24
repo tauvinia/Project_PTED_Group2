@@ -73,8 +73,6 @@ duration_from_hadiko <- calculate_difftime(data_from_hadiko, "mins")
 
 ```
 ```{r}
-## Plot
-
 #| fig-cap: "Duration of drives"
 #| label: fig-duration
 boxplot(duration_from_home$difftime, duration_from_hadiko$difftime,
@@ -86,7 +84,7 @@ boxplot(duration_from_home$difftime, duration_from_hadiko$difftime,
         names = c("Home", "Hadiko")
 )
 ```
-```{r}
+```{r, include=FALSE}
 #Environment Firstly, we filtered the points that have coordinates within the green spaces. Secondly, we calculated the duration of time spent within these green spaces using the function that we had previously created.
 
 
@@ -104,7 +102,6 @@ green_spaces_from_hadiko <- data_from_hadiko |>
 #We plotted the results to verify their plausibility.
 ```
 ```{r fig.width=10, fig.height=3}
-## Plot for overview
 #| fig-cap: "Mapmatching of the routes"
 #| label: fig-map
 # Data from home
@@ -153,7 +150,6 @@ green_spaces_from_hadiko <- green_spaces_from_hadiko |>
 #print(green_spaces_from_hadiko)
 ```
 ```{r}
-# Plot
 #| fig-cap: "Time spent in green areas"
 #| label: fig-greenareas
 boxplot(green_spaces_from_home$percentage_green_space, green_spaces_from_hadiko$percentage_green_space,
